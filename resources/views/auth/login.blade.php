@@ -1,9 +1,13 @@
+
 <!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+
 <head>
+
     <meta charset="utf-8" />
-    <title>Sign In | GoLaundry Kasir</title>
+    <title>Login | GoLaundry Kasir</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Minimal Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -23,6 +27,7 @@
 
 <body>
 
+
 <section class="auth-page-wrapper py-5 position-relative d-flex align-items-center justify-content-center min-vh-100 bg-light">
     <div class="container">
         <div class="row">
@@ -41,12 +46,12 @@
                                         </div>
 
                                         <div>
-                                            <h3 class="text-white">Start your journey with us.</h3>
-                                            <p class="text-white-75 fs-15">It brings together your tasks, projects, timelines, files and more</p>
+                                            <h3 class="text-white">Mulai usaha laundry anda.</h3>
+                                            <p class="text-white-75 fs-15">GoLaundry Kasir merupakan aplikasi kasir laundry terbaik dengan harga terjangkau dan ramah untuk usaha laundry kecil maupun besar</p>
                                         </div>
                                         <div class="text-center text-white-75">
                                             <p class="mb-0">&copy;
-                                                <script>document.write(new Date().getFullYear())</script> Hybrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                                <script>document.write(new Date().getFullYear())</script> GoLaundry Kasir.
                                             </p>
                                         </div>
                                     </div>
@@ -57,40 +62,40 @@
                                 <div class="card mb-0 border-0 shadow-none">
                                     <div class="card-body px-0 p-sm-5 m-lg-4">
                                         <div class="text-center mt-2">
-                                            <h5 class="text-primary fs-20">Welcome Back !</h5>
-                                            <p class="text-muted">Sign in to continue to Hybrix.</p>
+                                            <h5 class="text-primary fs-20">Selamat Datang !</h5>
+                                            <p class="text-muted">Login untuk menggunakan aplikasi GoLaundry kasir.</p>
                                         </div>
                                         <div class="p-2 mt-5">
-                                            <form action="{{ route('signin') }}" method="POST">
+                                            <form action="{{ route('loginPost') }}" method="POST">
                                                 @csrf
                                                 <div class="mb-3">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                                    <label for="username" class="form-label">Email / No HP</label>
+                                                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukan email atau no hp">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <div class="float-end">
-                                                        <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a>
+                                                        <a href="{{ route('lupaPassword') }}" class="text-muted">Lupa password?</a>
                                                     </div>
                                                     <label class="form-label" for="password-input">Password</label>
                                                     <div class="position-relative auth-pass-inputgroup mb-3">
-                                                        <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" name="password" id="password-input">
+                                                        <input type="password" class="form-control pe-5 password-input" name="password" placeholder="Masukan password" id="password-input">
                                                         <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                                    <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                                                    <label class="form-check-label" for="auth-remember-check">Ingat saya</label>
                                                 </div>
 
                                                 <div class="mt-4">
-                                                    <button class="btn btn-primary w-100" type="submit">Sign In</button>
+                                                    <button class="btn btn-primary w-100" type="submit">Login</button>
                                                 </div>
 
                                                 <div class="mt-4 pt-2 text-center">
                                                     <div class="signin-other-title">
-                                                        <h5 class="fs-13 mb-4 title">Sign In with</h5>
+                                                        <h5 class="fs-13 mb-4 title">Login melalui</h5>
                                                     </div>
                                                     <div class="pt-2 hstack gap-2 justify-content-center">
                                                         <button type="button" class="btn btn-soft-primary btn-icon"><i class="ri-facebook-fill fs-16"></i></button>
@@ -102,7 +107,7 @@
                                             </form>
 
                                             <div class="text-center mt-5">
-                                                <p class="mb-0">Don't have an account ? <a href="{{ url('register') }}" class="fw-semibold text-secondary text-decoration-underline"> SignUp</a> </p>
+                                                <p class="mb-0">Belum punya akun ? <a href="{{ route('register') }}" class="fw-semibold text-secondary text-decoration-underline"> Daftar Sekarang</a> </p>
                                             </div>
                                         </div>
                                     </div><!-- end card body -->
