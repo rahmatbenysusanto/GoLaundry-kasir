@@ -65,25 +65,25 @@
                                             <p class="text-muted">Dapatkan gratis akses selama 7 hari</p>
                                         </div>
                                         <div class="p-2 mt-5">
-                                            <form class="needs-validation" novalidate action="https://themesbrand.com/hybrix/html/index.html">
-
+                                            <form class="needs-validation" action="{{ route('registerPost') }}" method="POST">
+                                                @csrf
                                                 <div class="mb-3">
                                                     <label for="useremail" class="form-label">Email <span class="text-danger">*</span></label>
-                                                    <input type="email" class="form-control" id="useremail" placeholder="Masukan email" required>
+                                                    <input type="email" class="form-control" id="useremail" name="email" placeholder="Masukan email" required>
                                                     <div class="invalid-feedback">
                                                         Masukan email
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">No HP <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="username" placeholder="Masukan no hp" required>
+                                                    <input type="text" class="form-control" id="username" name="noHp" placeholder="Masukan no hp" required>
                                                     <div class="invalid-feedback">
                                                         Masukan no hp
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">Nama Laundry <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="username" placeholder="Masukan nama laundry" required>
+                                                    <input type="text" class="form-control" id="username" name="namaLaundry" placeholder="Masukan nama laundry" required>
                                                     <div class="invalid-feedback">
                                                         Masukan nama laundry
                                                     </div>
@@ -92,7 +92,7 @@
                                                 <div class="mb-3">
                                                     <label class="form-label" for="password-input">Password</label>
                                                     <div class="position-relative auth-pass-inputgroup">
-                                                        <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                        <input type="password" class="form-control pe-5 password-input" onpaste="return false" name="password" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                                         <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                         <div class="invalid-feedback">
                                                             Please enter password
@@ -103,7 +103,7 @@
                                                 <div class="mb-3">
                                                     <label class="form-label" for="password-input">Ulangi Password</label>
                                                     <div class="position-relative auth-pass-inputgroup">
-                                                        <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                        <input type="password" class="form-control pe-5 password-input" onpaste="return false" name="passwordRepeat" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                                         <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                         <div class="invalid-feedback">
                                                             Please enter password

@@ -71,7 +71,36 @@ class AuthController extends Controller
 
     public function registerPost(RegisterRequest $request)
     {
+        $dataHttpReq = [
+            'email'     => $request->post('email'),
+            'name'      => $request->post('namaLaundry'),
+            'password'  => $request->post('password'),
+            'hak_akses' => 'client',
+            'status'    => 'inactive'
+        ];
 
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env('API_URL') . '/register',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_POSTFIELDS => json_encode($dataHttpReq),
+            CURLOPT_HTTPHEADER => array(
+                'authorized: ' . env('AUTHORIZED'),
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        dd($response);
     }
 
     public function lupaPassword(): View

@@ -26,6 +26,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login-post', 'loginPost')->name('loginPost');
     Route::get('/register', 'register')->name('register');
+    Route::post('/register-post', 'registerPost')->name('registerPost');
     Route::get('/lupa-password', 'lupaPassword')->name('lupaPassword');
     Route::get('/buat-password-baru', 'buatPasswordBaru');
     Route::get('/logout', 'logout')->name('logout');
