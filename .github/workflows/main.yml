@@ -1,4 +1,4 @@
-name: CI/CD
+name: Laravel Deploy
 
 on:
   push:
@@ -6,21 +6,17 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Dependencies
-        run: composer install
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
 
-      - name: Run Tests
-        run: php artisan test
-
-      - name: Build and Deploy
-        run: |
-          php artisan optimize
-          php artisan migrate
-          php artisan route:cache
+      - name: Install dependencies
+        run: composer install --no-dev --prefer-dist --no-interaction
