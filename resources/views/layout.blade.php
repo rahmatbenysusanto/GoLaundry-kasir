@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="enable">
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
 <head>
 
@@ -9,17 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Minimal Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-    <!-- jsvectormap css -->
-    <link href="{{ asset('assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
+    @yield('css')
 
     <!-- Sweet Alert css-->
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <!--Swiper slider css-->
-    <link href="{{ asset('assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Layout config Js -->
     <script src="{{ asset('assets/js/layout.js') }}"></script>
@@ -32,7 +29,7 @@
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
 
-    @yield('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 </head>
 
@@ -474,6 +471,13 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="{{ route('pembayaran') }}" class="nav-link menu-link {{ $title == 'Pembayaran' ? 'active' : '' }}">
+                            <i class="bx bx-money"></i>
+                            <span data-key="t-dashboard">Pembayaran</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('diskon') }}" class="nav-link menu-link {{ $title == 'Diskon' ? 'active' : '' }}">
                             <i class="mdi mdi-sale"></i>
                             <span data-key="t-dashboard">Diskon</span>
@@ -587,6 +591,15 @@
 <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
+<script src="{{ asset('assets/js/plugins.js') }}"></script>
+
+@yield('js')
+
+<!-- Sweet Alerts js -->
+<script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+<!-- Sweet alert init js-->
+<script src="{{ asset('assets/js/pages/sweetalerts.init.js') }}"></script>
 
 <!-- apexcharts -->
 <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
@@ -603,9 +616,6 @@
 
 <!-- App js -->
 <script src="{{ asset('assets/js/app.js') }}"></script>
-
-<!-- Sweet Alerts js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @if ($message = Session::get('success'))
     <script>
@@ -634,8 +644,6 @@
         });
     </script>
 @endif
-
-@yield('js')
 
 </body>
 

@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Layanan Laundry')
+@section('title', 'Pembayaran Laundry')
 @section('css')
     <!--datatable css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
@@ -27,39 +27,37 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Daftar Layanan Laundry</h4>
+                    <h4 class="card-title mb-0">Daftar Pembayaran Laundry</h4>
                 </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-success add-btn mb-3" data-bs-toggle="modal" data-bs-target="#tambahLayanan">
-                        <i class="ri-add-line align-bottom me-1"></i> Tambah Layanan
+                    <button type="button" class="btn btn-success add-btn mb-3" data-bs-toggle="modal" data-bs-target="#tambahPembayaran">
+                        <i class="ri-add-line align-bottom me-1"></i> Tambah Pembayaran
                     </button>
                     <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nama Layanan</th>
-                            <th>Harga</th>
+                            <th>Pembayaran</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($layanan as $ly)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $ly->nama_layanan }}</td>
-                                    <td>{{ rupiahFormat($ly->harga) }}</td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <div class="edit">
-                                                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>
-                                            </div>
-                                            <div class="remove">
-                                                <a onclick="deleteLayanan('{{ $ly->id }}')" class="hapus{{ $ly->id }} btn btn-sm btn-danger remove-item-btn">Hapus</a>
-                                            </div>
+                        @foreach($pembayaran as $ly)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $ly->pembayaran }}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <div class="edit">
+                                            <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        <div class="remove">
+                                            <a onclick="deleteLayanan('{{ $ly->id }}')" class="hapus{{ $ly->id }} btn btn-sm btn-danger remove-item-btn">Hapus</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -67,23 +65,19 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahLayanan" tabindex="-1" aria-labelledby="exampleModalgridLabel" aria-modal="true">
+    <div class="modal fade" id="tambahPembayaran" tabindex="-1" aria-labelledby="exampleModalgridLabel" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalgridLabel">Tambah Layanan</h5>
+                    <h5 class="modal-title" id="exampleModalgridLabel">Tambah Pembayaran</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('tambahLayanan') }}" method="POST">
+                    <form action="{{ route('tambahPembayaran') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Layanan</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Layanan">
-                        </div>
-                        <div class="mb-3">
-                            <label for="harga" class="form-label">Harga</label>
-                            <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukan Harga Layanan">
+                            <label for="pembayaran" class="form-label">Pembayaran</label>
+                            <input type="text" class="form-control" id="pembayaran" name="pembayaran" placeholder="Masukan Pembayaran">
                         </div>
                         <div class="mb-3">
                             <div class="hstack gap-2 justify-content-end">
@@ -130,7 +124,7 @@
                         '<lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>' +
                         '<div class="mt-4 pt-2 fs-15 mx-5">' +
                         '<h4>Apakah Anda Yakin ?</h4>' +
-                        '<p class="text-muted mx-4 mb-0">Apakah anda yakin ingin menghapus layanan ini ?</p>' +
+                        '<p class="text-muted mx-4 mb-0">Apakah anda yakin ingin menghapus pembayaran ini ?</p>' +
                         '</div>' +
                         '</div>',
                     showCancelButton:!0,
@@ -142,7 +136,7 @@
                     showCloseButton:!0
                 }).then(function (e) {
                     if (e.value) {
-                        window.location.href = `hapus-layanan/${id}`;
+                        window.location.href = `hapus-pembayaran/${id}`;
                     }
                 });
             }

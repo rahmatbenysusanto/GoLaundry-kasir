@@ -30,7 +30,7 @@
                     <h4 class="card-title mb-0">Daftar Client Laundry</h4>
                 </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-success add-btn mb-3" data-bs-toggle="modal" data-bs-target="#tambahParfum">
+                    <button type="button" class="btn btn-success add-btn mb-3" data-bs-toggle="modal" data-bs-target="#tambahPelanggan">
                         <i class="ri-add-line align-bottom me-1"></i> Tambah Client
                     </button>
                     <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
@@ -67,24 +67,28 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahParfum" tabindex="-1" aria-labelledby="exampleModalgridLabel" aria-modal="true">
+    <!-- Modals Tambah Pelanggan -->
+    <div class="modal fade" id="tambahPelanggan" tabindex="-1" aria-labelledby="exampleModalgridLabel" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalgridLabel">Tambah Parfum</h5>
+                    <h5 class="modal-title" id="exampleModalgridLabel">Tambah Pelanggan Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('tambahParfum') }}" method="POST">
+                    <form action="{{ route('tambahClient') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Parfum</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Layanan">
-                        </div>
-                        <div class="mb-3">
-                            <div class="hstack gap-2 justify-content-end">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kembali</button>
-                                <button type="submit" class="btn btn-primary">Tambah</button>
+                        <div class="row g-3">
+                            <div>
+                                <label for="nama" class="form-label">Nama Pelanggan</label>
+                                <input type="text" class="form-control" id="nama" name="nama">
+                            </div>
+                            <div>
+                                <label for="noHp" class="form-label">Nomor HP</label>
+                                <input type="text" class="form-control" id="noHp" name="noHp">
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Tambah Pelanggan</button>
                             </div>
                         </div>
                     </form>

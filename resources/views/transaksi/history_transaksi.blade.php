@@ -54,7 +54,7 @@
                                 </td>
                                 <td>{{ $or->client->name }}</td>
                                 <td>{{ rupiahFormat($or->price) }}</td>
-                                <td>Transfer BRI</td>
+                                <td>{{ $or->pembayaran->pembayaran }}</td>
                                 <td>
                                     <span class="badge badge-soft-success">Lunas</span>
                                 </td>

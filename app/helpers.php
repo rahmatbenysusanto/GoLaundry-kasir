@@ -8,7 +8,7 @@ function rupiahFormat($amount = 0)
 function tanggal_indo($date)
 {
     $tanggal = substr($date, 8, 2);
-    $jam = substr($date, 11, 5);
+    $jam = substr($date, 11, 2);
     $bulan = substr($date, 5, 2);
     if ($bulan == '01') {
         $bulan = 'Januari';
@@ -37,7 +37,7 @@ function tanggal_indo($date)
     }
     $tahun = substr($date, 0, 4);
 
-    return $tanggal . ' ' . $bulan . ' ' . $tahun . ' ' . $jam;
+    return $tanggal . ' ' . $bulan . ' ' . $tahun . ' ' . date('H:i:s', strtotime($date));
 }
 
 function hitApiGET($url, $data) {
@@ -93,8 +93,6 @@ function hitApiPOST($url, $data) {
 }
 
 function hitApiDELETE($url) {
-
-
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
@@ -106,6 +104,32 @@ function hitApiDELETE($url) {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'DELETE',
+        CURLOPT_HTTPHEADER => array(
+            'authorization: '. Session::get('token'),
+            'authorized: ' . env('AUTHORIZED'),
+            'Content-Type: application/json'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return $response;
+}
+
+function hitApiPATCH($url, $data) {
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => env('API_URL') . '/' . $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'PATCH',
+        CURLOPT_POSTFIELDS => json_encode($data),
         CURLOPT_HTTPHEADER => array(
             'authorization: '. Session::get('token'),
             'authorized: ' . env('AUTHORIZED'),

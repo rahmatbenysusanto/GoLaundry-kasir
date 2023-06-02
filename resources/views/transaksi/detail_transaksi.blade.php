@@ -35,12 +35,18 @@
                                 <tr>
                                     <td class="fw-semibold">Pembayaran</td>
                                     <td class="fw-semibold ps-2">:</td>
-                                    <td class="fw-normal ps-2">Transfer Bank Mandiri</td>
+                                    <td class="fw-normal ps-2">{{ $order->pembayaran->pembayaran }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-semibold">Status Pembayaran</td>
                                     <td class="fw-semibold ps-2">:</td>
-                                    <td class="fw-normal ps-2"><span class="badge badge-soft-success">Lunas</span></td>
+                                    <td class="fw-normal ps-2">
+                                        @if($order->status_pembayaran == 'Bayar Langsung')
+                                            <span class="badge badge-soft-success">Lunas</span>
+                                        @else
+                                            <span class="badge badge-soft-danger">Belum Bayar</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -90,11 +96,11 @@
                         <div class="col-4">
                             <div>
                                 @if($order->status == 'new')
-                                    <a href="#" class="btn btn-primary">Laundry Diproses</a>
+                                    <a href="/update-status/{{ $order->id }}" class="btn btn-primary">Laundry Diproses</a>
                                 @elseif($order->status == 'proses')
-                                    <a href="#" class="btn btn-primary">Laundry Selesai</a>
+                                    <a href="/update-status/{{ $order->id }}" class="btn btn-primary">Laundry Selesai</a>
                                 @elseif($order->status == 'selesai')
-                                    <a href="#" class="btn btn-primary">Laundry Diambil</a>
+                                    <a href="/update-status/{{ $order->id }}" class="btn btn-primary">Laundry Diambil</a>
                                 @endif
                                 <div class="dropdown mt-4">
                                     <a href="#" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

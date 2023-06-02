@@ -23,4 +23,27 @@ class ClientController extends Controller
         $title = 'Daftar Client';
         return view('client.daftar_client', compact('title', 'client'));
     }
+
+    public function tambahClient(Request $request)
+    {
+        $dataHttpReq['name'] = $request->post('nama');
+        $dataHttpReq['noHp'] = $request->post('noHp');
+        $dataHttpReq['user_id'] = Session::get('data_user')->id;
+
+        $hit =hitApiPOST('client', $dataHttpReq);
+        $response = json_decode($hit);
+
+        if (is_object($response)) {
+            if ($response->status) {
+                Session::flash('success', 'Pelanggan baru berhasil ditambahkan');
+                return back();
+            } else {
+                Session::flash('error', 'Pelanggan gagal berhasil ditambahkan');
+                return back();
+            }
+        } else {
+            Session::flash('error', 'Pelanggan gagal berhasil ditambahkan');
+            return back();
+        }
+    }
 }

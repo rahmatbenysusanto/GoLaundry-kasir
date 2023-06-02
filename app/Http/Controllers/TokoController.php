@@ -148,4 +148,42 @@ class TokoController extends Controller
         $title = 'Pengaturan';
         return view('toko.pengaturan', compact('title'));
     }
+
+    public function pembayaran() :View
+    {
+        $dataHttpReq['user_id'] = Session::get('data_user')->id;
+        $hit = hitApiGET('pembayaran', $dataHttpReq);
+        $response = json_decode($hit);
+
+        if (is_object($response)) {
+            $pembayaran = $response->data;
+        } else {
+            $pembayaran = null;
+        }
+
+        $title = 'Pembayaran';
+        return view('toko.pembayaran', compact('title', 'pembayaran'));
+    }
+
+    public function tambahPembayaran(Request $request)
+    {
+        $dataHttpReq['pembayaran'] = $request->post('pembayaran');
+        $dataHttpReq['user_id'] = Session::get('data_user')->id;
+
+        $hit = hitApiPOST('pembayaran', $dataHttpReq);
+        $response = json_decode($hit);
+
+        if (is_object($response)) {
+            if ($response->status) {
+                Session::flash('success', 'Berhasil menambahkan pembayaran');
+                return back();
+            } else {
+                Session::flash('error', 'Gagal menambahkan pembayaran');
+                return back();
+            }
+        } else {
+            Session::flash('error', 'Gagal menambahkan pembayaran');
+            return back();
+        }
+    }
 }

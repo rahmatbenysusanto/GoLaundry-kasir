@@ -55,11 +55,15 @@
                                     </td>
                                     <td>{{ $or->client->name }}</td>
                                     <td>{{ rupiahFormat($or->price) }}</td>
-                                    <td>{{ $or->parfum_id }}</td>
+                                    <td>{{ $or->parfum->nama_parfum }}</td>
                                     <td>Diskon</td>
-                                    <td>Transfer BRI</td>
+                                    <td>{{ $or->pembayaran->pembayaran }}</td>
                                     <td>
-                                        <span class="badge badge-soft-success">Lunas</span>
+                                        @if($or->status_pembayaran == 'Bayar Langsung')
+                                            <span class="badge badge-soft-success">Lunas</span>
+                                        @else
+                                            <span class="badge badge-soft-danger">Belum Bayar</span>
+                                        @endif
                                     </td>
                                     <td>
                                         @if($or->status == 'new')
@@ -72,7 +76,7 @@
                                     </td>
                                     <td>{{ tanggal_indo($or->createdAt) }}</td>
                                     <td>
-                                        <a href="/detail-transaksi/{{ base64_encode($or->order_number) }}" class="btn btn-sm btn-primary edit-item-btn">Lihat Detail</a>
+                                        <a href="/detail-transaksi/{{ $or->order_number }}" class="btn btn-sm btn-primary edit-item-btn">Lihat Detail</a>
                                     </td>
                                 </tr>
                             @endforeach

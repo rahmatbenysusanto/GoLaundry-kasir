@@ -40,10 +40,19 @@ Route::group(['middleware' => 'authLogin'], function () {
         Route::get('/daftar-transaksi', 'daftarTransaksi')->name('daftarTransaksi');
         Route::get('/detail-transaksi/{id}', 'detailTransaksi');
         Route::get('/histori-transaksi', 'historyTransaksi')->name('historyTransaksi');
+
+        Route::get('/get-client', 'getClient')->name('getClient');
+        Route::get('/get-cart-transaksi', 'getChartTransaksi')->name('getChartTransaksi');
+        Route::get('/delete-cart/{id}', 'deleteCart')->name('deleteCart');
+        Route::post('/tambah-layanan-cart', 'tambahLayanan')->name('tambahLayananCart');
+        Route::post('/update-count-cart', 'updateCountCart')->name('updateCountCart');
+        Route::post('/create-transaksi', 'createTransaksi')->name('createTransaksi');
+        Route::get('/update-status/{id}', 'updateStatus');
     });
 
     Route::controller(ClientController::class)->group(function () {
         Route::get('/daftar-client', 'daftarClient')->name('daftarClient');
+        Route::post('/tambah-client', 'tambahClient')->name('tambahClient');
     });
 
     Route::controller(TokoController::class)->group(function () {
@@ -62,5 +71,8 @@ Route::group(['middleware' => 'authLogin'], function () {
         Route::get('/laporan', 'laporan')->name('laporan');
         Route::get('/karyawan', 'karyawan')->name('karyawan');
         Route::get('/pengaturan', 'pengaturan')->name('pengaturan');
+
+        Route::get('/pembayaran', 'pembayaran')->name('pembayaran');
+        Route::post('/tambah-pembayaran', 'tambahPembayaran')->name('tambahPembayaran');
     });
 });
