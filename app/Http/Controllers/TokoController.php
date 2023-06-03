@@ -69,8 +69,64 @@ class TokoController extends Controller
 
     public function diskon(): View
     {
+        $dataHttpReq['user_id'] = Session::get('data_user')->id;
+
+        $hit = hitApiGET('diskon', $dataHttpReq);
+        $response = json_decode($hit);
+
+        if (is_object($response)) {
+            $diskon = $response->data;
+        } else {
+            $diskon = null;
+        }
+
         $title = 'Diskon';
-        return view('toko.diskon', compact('title'));
+        return view('toko.diskon', compact('title', 'diskon'));
+    }
+
+    public function tambahDiskon(Request $request)
+    {
+        $dataHttpReq['user_id'] = Session::get('data_user')->id;
+        $dataHttpReq['nama_diskon'] = $request->post('nama');
+        $dataHttpReq['jenis_diskon'] = $request->post('jenis');
+        $dataHttpReq['jumlah_diskon'] = $request->post('jumlah');
+
+        $hit = hitApiPOST('diskon', $dataHttpReq);
+        $response = json_decode($hit);
+
+        if (is_object($response)) {
+            if ($response->status) {
+                Session::flash('success', 'Berhasil menambahkan Diskon.');
+                return back();
+            } else {
+                Session::flash('error', 'Gagal menambahkan Diskon.');
+                return back();
+            }
+        } else {
+            Session::flash('error', 'Gagal menambahkan Diskon.');
+            return back();
+        }
+    }
+
+    public function deleteDiskon($id)
+    {
+        $url = 'diskon/' . $id;
+
+        $hit = hitApiDELETE($url);
+        $response = json_decode($hit);
+
+        if (is_object($response)) {
+            if ($response->status) {
+                Session::flash('success', 'Berhasil menghapus Diskon.');
+                return back();
+            } else {
+                Session::flash('error', 'Gagal menghapus Diskon.');
+                return back();
+            }
+        } else {
+            Session::flash('error', 'Gagal menghapus Diskon.');
+            return back();
+        }
     }
 
     public function parfum(): View

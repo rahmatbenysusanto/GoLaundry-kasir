@@ -38,7 +38,6 @@
                             <th>Client</th>
                             <th>Total Harga</th>
                             <th>Parfum</th>
-                            <th>Diskon</th>
                             <th>Pembayaran</th>
                             <th>Status Pembayaran</th>
                             <th>Status</th>
@@ -54,9 +53,8 @@
                                         <a href="#">{{ $or->order_number }}</a>
                                     </td>
                                     <td>{{ $or->client->name }}</td>
-                                    <td>{{ rupiahFormat($or->price) }}</td>
+                                    <td>{{ rupiahFormat($or->total_harga) }}</td>
                                     <td>{{ $or->parfum->nama_parfum }}</td>
-                                    <td>Diskon</td>
                                     <td>{{ $or->pembayaran->pembayaran }}</td>
                                     <td>
                                         @if($or->status_pembayaran == 'Bayar Langsung')

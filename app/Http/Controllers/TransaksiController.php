@@ -40,8 +40,17 @@ class TransaksiController extends Controller
             $parfum = null;
         }
 
+        $hit = hitApiGET('diskon', $dataHttpReq);
+        $response = json_decode($hit);
+
+        if (is_object($response)) {
+            $diskon = $response->data;
+        } else {
+            $diskon = null;
+        }
+
         $title = 'Buat Transaksi';
-        return view('transaksi.buat_transaksi', compact('title', 'layanan', 'pembayaran', 'parfum'));
+        return view('transaksi.buat_transaksi', compact('title', 'layanan', 'pembayaran', 'parfum', 'diskon'));
     }
 
     public function getClient()
@@ -181,6 +190,12 @@ class TransaksiController extends Controller
         $dataHttpReq['status_pembayaran'] = $request->post('statusPembayaran');
         $dataHttpReq['user_id'] = Session::get('data_user')->id;
         $dataHttpReq['parfum_id'] = $request->post('parfum');
+
+        if ($request->post('diskon') == 0) {
+            $dataHttpReq['diskon_id'] = 1;
+        } else {
+            $dataHttpReq['diskon_id'] = $request->post('diskon');
+        }
 
         $hit = hitApiPOST('order-create', $dataHttpReq);
         $response = json_decode($hit);

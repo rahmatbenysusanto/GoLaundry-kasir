@@ -80,7 +80,7 @@
                             <div class="md-3">
                                 <label for="" class="text-muted">Pembayaran</label>
                                 <select class="form-select mb-3" name="pembayaran" id="pembayaran">
-                                        <option selected>Pilih Pembayaran</option>
+                                    <option selected>Pilih Pembayaran</option>
                                     @foreach($pembayaran as $pm)
                                         <option value="{{ $pm->id }}">{{ $pm->pembayaran }}</option>
                                     @endforeach
@@ -97,15 +97,17 @@
                                 </select>
                             </div>
                         </div>
-{{--                        <div class="col-12">--}}
-{{--                            <div class="md-3">--}}
-{{--                                <label for="diskon" class="text-muted">Diskon</label>--}}
-{{--                                <select class="form-select mb-3" name="diskon" id="diskon">--}}
-
-{{--                                    <option value="1">Bayar Langsung</option>--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        <div class="col-12">
+                            <div class="md-3">
+                                <label for="diskon" class="text-muted">Diskon</label>
+                                <select class="form-select mb-3" name="diskon" id="diskon">
+                                    <option value="0">Pilih Diskon</option>
+                                    @foreach($diskon as $dis)
+                                        <option value="{{ $dis->id }}">{{ $dis->nama_diskon }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -340,6 +342,7 @@
                 let pembayaran = document.getElementById('pembayaran').value;
                 let statusPembayaran = document.getElementById('statusPembayaran').value;
                 let parfum = document.getElementById('parfum').value;
+                let diskon = document.getElementById('diskon').value;
 
                 if (client == '') {
                     Swal.fire({
@@ -421,9 +424,11 @@
                         client: client,
                         pembayaran: pembayaran,
                         statusPembayaran: statusPembayaran,
-                        parfum: parfum
+                        parfum: parfum,
+                        diskon: diskon,
                     },
                     success: function (res) {
+                        console.info(res)
                         if (res.status == true) {
                             Swal.fire({
                                 html:'<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon><div class="mt-4 pt-2 fs-15"><h4>Berhasil !</h4><p class="text-muted mx-4 mb-0">Transaksi berhasil dibuat</p></div></div>',

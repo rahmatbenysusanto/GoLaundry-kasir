@@ -28,9 +28,19 @@
                                     <td class="fw-normal ps-2">{{ $order->client->noHp }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-semibold">Total Harga</td>
+                                    <td class="fw-semibold">Harga</td>
                                     <td class="fw-semibold ps-2">:</td>
                                     <td class="fw-normal ps-2">{{ rupiahFormat($order->price) }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold">Total Diskon</td>
+                                    <td class="fw-semibold ps-2">:</td>
+                                    <td class="fw-normal ps-2">{{ rupiahFormat($order->total_diskon) }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold">Total Harga</td>
+                                    <td class="fw-semibold ps-2">:</td>
+                                    <td class="fw-normal ps-2">{{ rupiahFormat($order->total_harga) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-semibold">Pembayaran</td>
@@ -41,7 +51,7 @@
                                     <td class="fw-semibold">Status Pembayaran</td>
                                     <td class="fw-semibold ps-2">:</td>
                                     <td class="fw-normal ps-2">
-                                        @if($order->status_pembayaran == 'Bayar Langsung')
+                                        @if($order->status_pembayaran == '1')
                                             <span class="badge badge-soft-success">Lunas</span>
                                         @else
                                             <span class="badge badge-soft-danger">Belum Bayar</span>
@@ -55,7 +65,7 @@
                                 <tr>
                                     <td class="fw-semibold">Diskon</td>
                                     <td class="fw-semibold ps-2">:</td>
-                                    <td class="fw-normal ps-2">-</td>
+                                    <td class="fw-normal ps-2">{{ $order->diskon->nama_diskon }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-semibold">Parfum</td>
@@ -88,6 +98,8 @@
                                             <span class="badge bg-primary">Di Proses</span>
                                         @elseif($order->status == 'selesai')
                                             <span class="badge bg-success">Selesai</span>
+                                        @else
+                                            <span class="badge bg-warning">Pesanan Diambil</span>
                                         @endif
                                     </td>
                                 </tr>
