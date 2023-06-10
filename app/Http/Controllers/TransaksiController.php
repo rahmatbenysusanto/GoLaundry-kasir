@@ -190,15 +190,14 @@ class TransaksiController extends Controller
         $dataHttpReq['status_pembayaran'] = $request->post('statusPembayaran');
         $dataHttpReq['user_id'] = Session::get('data_user')->id;
         $dataHttpReq['parfum_id'] = $request->post('parfum');
+        $dataHttpReq['diskon_id'] = $request->post('diskon');
 
-        if ($request->post('diskon') == 0) {
-            $dataHttpReq['diskon_id'] = 1;
-        } else {
-            $dataHttpReq['diskon_id'] = $request->post('diskon');
-        }
+        Log::info($dataHttpReq);
 
         $hit = hitApiPOST('order-create', $dataHttpReq);
         $response = json_decode($hit);
+
+        Log::info($response);
 
         if (is_object($response)) {
             if ($response->status == true) {

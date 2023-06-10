@@ -101,7 +101,7 @@
                             <div class="md-3">
                                 <label for="diskon" class="text-muted">Diskon</label>
                                 <select class="form-select mb-3" name="diskon" id="diskon">
-                                    <option value="0">Pilih Diskon</option>
+                                    <option value="1">Pilih Diskon</option>
                                     @foreach($diskon as $dis)
                                         <option value="{{ $dis->id }}">{{ $dis->nama_diskon }}</option>
                                     @endforeach
@@ -250,7 +250,7 @@
                         }
 
                         for (let a = 0; a < res.length; a++) {
-                            totalHarga += parseInt(res[a].count) * parseInt(res[a].layanan.harga);
+                            totalHarga += parseFloat(res[a].count) * parseInt(res[a].layanan.harga);
                             html += `
                             <tr>
                                 <td style="padding-top: 20px">${parseInt(a + 1)}</td>
@@ -270,6 +270,7 @@
                             `
                         }
                         document.getElementById('cartTable').innerHTML = html
+                        console.info(totalHarga)
                         document.getElementById('totalHarga').innerText = rupiah(totalHarga)
                     }
                 });
