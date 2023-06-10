@@ -30,6 +30,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/lupa-password', 'lupaPassword')->name('lupaPassword');
     Route::get('/buat-password-baru', 'buatPasswordBaru');
     Route::get('/logout', 'logout')->name('logout');
+    Route::get('/otp', 'verifikasiOTP');
+    Route::post('/otp', 'sendOTP')->name('sendOTP');
 });
 
 Route::group(['middleware' => 'authLogin'], function () {

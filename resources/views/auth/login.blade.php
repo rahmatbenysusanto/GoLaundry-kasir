@@ -66,11 +66,19 @@
                                             <p class="text-muted">Login untuk menggunakan aplikasi GoLaundry kasir.</p>
                                         </div>
                                         <div class="p-2 mt-5">
+
+                                            @if($message = Session::get('error'))
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    <strong>Login Gagal! </strong> No Hp atau Password Salah
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @endif
+
                                             <form action="{{ route('loginPost') }}" method="POST">
                                                 @csrf
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">Email / No HP</label>
-                                                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukan email atau no hp">
+                                                    <label for="username" class="form-label">No HP</label>
+                                                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukan no hp" value="{{ Session::get('username') }}">
                                                 </div>
 
                                                 <div class="mb-3">

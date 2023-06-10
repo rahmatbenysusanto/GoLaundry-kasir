@@ -12,6 +12,9 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
+    <!-- Sweet Alert css-->
+    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
     <!-- Layout config Js -->
     <script src="{{ asset('assets/js/layout.js') }}"></script>
     <!-- Bootstrap Css -->
@@ -69,21 +72,21 @@
                                                 @csrf
                                                 <div class="mb-3">
                                                     <label for="useremail" class="form-label">Email <span class="text-danger">*</span></label>
-                                                    <input type="email" class="form-control" id="useremail" name="email" placeholder="Masukan email" required>
+                                                    <input type="email" class="form-control" id="useremail" name="email" value="{{ Session::get('regEmail') }}" placeholder="Masukan email" required>
                                                     <div class="invalid-feedback">
                                                         Masukan email
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">No HP <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="username" name="noHp" placeholder="Masukan no hp" required>
+                                                    <input type="text" class="form-control" id="username" name="noHp" value="{{ Session::get('regNoHp') }}" placeholder="Masukan no hp" required>
                                                     <div class="invalid-feedback">
                                                         Masukan no hp
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">Nama Laundry <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="username" name="namaLaundry" placeholder="Masukan nama laundry" required>
+                                                    <input type="text" class="form-control" id="username" name="namaLaundry" value="{{ Session::get('regNama') }}" placeholder="Masukan nama laundry" required>
                                                     <div class="invalid-feedback">
                                                         Masukan nama laundry
                                                     </div>
@@ -112,7 +115,7 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Hybrix <a href="#" class="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</a></p>
+                                                    <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the LaundryKasir App <a href="#" class="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</a></p>
                                                 </div>
 
                                                 <div id="password-contain" class="p-3 bg-light mb-2 rounded">
@@ -155,6 +158,43 @@
 <script src="{{ asset('assets/js/pages/form-validation.init.js') }}"></script>
 <!-- password create init -->
 <script src="{{ asset('assets/js/pages/passowrd-create.init.js') }}"></script>
+
+<!-- Sweet Alerts js -->
+<script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+<!-- Sweet alert init js-->
+<script src="{{ asset('assets/js/pages/sweetalerts.init.js') }}"></script>
+
+@if ($message = Session::get('success'))
+    <script>
+        Swal.fire({
+            html:'<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon><div class="mt-4 pt-2 fs-15"><h4>Berhasil !</h4><p class="text-muted mx-4 mb-0">{{ $message }}</p></div></div>',
+            showCancelButton:!0,
+            showConfirmButton:!1,
+            cancelButtonClass:"btn btn-primary w-xs mb-1",
+            cancelButtonText:"OK",
+            buttonsStyling:!1,
+            showCloseButton:!0
+        }).then(function (e) {
+            let url = 'login'
+            window.location.href = url;
+        });
+    </script>
+@endif
+
+@if($message = Session::get('error'))
+    <script>
+        Swal.fire({
+            html:'<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon><div class="mt-4 pt-2 fs-15"><h4>Gagal !</h4><p class="text-muted mx-4 mb-0">{{ $message }}</p></div></div>',
+            showCancelButton:!0,
+            showConfirmButton:!1,
+            cancelButtonClass:"btn btn-primary w-xs mb-1",
+            cancelButtonText:"OK",
+            buttonsStyling:!1,
+            showCloseButton:!0
+        });
+    </script>
+@endif
 
 </body>
 

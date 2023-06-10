@@ -22,7 +22,7 @@ class AuthController extends Controller
         $password = $request->post('password');
 
         $httpHeader = [
-          'email'       => $username,
+          'noHp'        => $username,
           'password'    => $password
         ];
 
@@ -48,19 +48,23 @@ class AuthController extends Controller
         curl_close($curl);
 
         if (is_object($response)) {
-            if ($response->status) {
+            if ($response->status == true) {
                 Session::put('data_user', $response->data->user);
                 Session::put('token', $response->data->token);
                 Session::put('role', $response->data->user->hak_akses);
+                Session::put('username', $username);
 
                 return redirect()->action([HomeController::class, 'index']);
             } else {
                 Log::error('Login Failed, ' . $response->message);
-                $this->responseNotData(false, 'Login Failed', 400);
+                Session::put('username', $username);
+                Session::flash('error', 'Login gagal, No Hp atau Password Salah!');
+                return back();
             }
         } else {
-            Log::error('Server Login tidak merespon request, Silahkan lakukan request ulang.');
-            $this->responseNotData(false, 'Login Failed', 400);
+            Session::put('username', $username);
+            Session::flash('error', 'Login gagal, No Hp atau Password Salah!');
+            return back();
         }
     }
 
@@ -75,6 +79,7 @@ class AuthController extends Controller
             'email'     => $request->post('email'),
             'name'      => $request->post('namaLaundry'),
             'password'  => $request->post('password'),
+            'noHp'      => $request->post('noHp'),
             'hak_akses' => 'client',
             'status'    => 'inactive'
         ];
@@ -97,10 +102,31 @@ class AuthController extends Controller
             ),
         ));
 
-        $response = curl_exec($curl);
+        $response = json_decode(curl_exec($curl));
 
         curl_close($curl);
-        dd($response);
+
+        if (is_object($response)) {
+            if ($response->status == true) {
+                Session::put('no', $request->post('noHp'));
+                Session::put('otp', true);
+                return redirect()->action([AuthController::class, 'verifikasiOTP']);
+//                Session::flash('success', 'Register berhasil!, silahkan login');
+//                return back();
+            } else {
+                Session::put('regEmail', $request->post('email'));
+                Session::put('regNama', $request->post('namaLaundry'));
+                Session::put('regNoHp', $request->post('noHp'));
+                Session::flash('error', 'Register Gagal, Ulangi berberapa saat lagi');
+                return back();
+            }
+        } else {
+            Session::put('regEmail', $request->post('email'));
+            Session::put('regNama', $request->post('namaLaundry'));
+            Session::put('regNoHp', $request->post('noHp'));
+            Session::flash('error', 'Register Gagal, Ulangi berberapa saat lagi');
+            return back();
+        }
     }
 
     public function lupaPassword(): View
@@ -118,6 +144,56 @@ class AuthController extends Controller
         Session::forget('data_user');
         Session::forget('token');
         Session::forget('role');
+
+        Session::forget('regEmail');
+        Session::forget('regNama');
+        Session::forget('regNoHp');
         return redirect()->action([AuthController::class, 'login']);
+    }
+
+    public function verifikasiOTP(): View
+    {
+        return view('auth.otp');
+    }
+
+    public function sendOTP(Request $request)
+    {
+        $dataHttpReq['noHp'] = $request->post('no');
+        $dataHttpReq['otp'] = $request->post('angka1') + $request->post('angka2') + $request->post('angka3') +$request->post('angka4');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env('API_URL') . '/otp',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($dataHttpReq),
+            CURLOPT_HTTPHEADER => array(
+                'authorized: ' . env('AUTHORIZED'),
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+
+        if (is_object($response)) {
+            if ($response->status == true) {
+                Session::flash('success', 'Verifikasi Akun berhasil, silahkan login');
+                return back();
+            } else {
+                Session::flash('error', 'Verifikasi Akun gagal');
+                return back();
+            }
+        } else {
+            Session::flash('error', 'Verifikasi Akun gagal');
+            return back();
+        }
     }
 }
