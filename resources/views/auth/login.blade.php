@@ -77,27 +77,21 @@
                                             <form action="{{ route('loginPost') }}" method="POST">
                                                 @csrf
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">No HP</label>
-                                                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukan no hp" value="{{ Session::get('username') }}">
+                                                    <label for="username" class="form-label">No Hp</label>
+                                                    <input type="number" class="form-control" id="username" name="username" placeholder="Masukan no hp" value="{{ Session::get('username') }}" required>
                                                 </div>
-
-                                                <div class="mb-3">
-                                                    <div class="float-end">
-                                                        <a href="{{ route('lupaPassword') }}" class="text-muted">Lupa password?</a>
-                                                    </div>
-                                                    <label class="form-label" for="password-input">Password</label>
+                                                <div class="mb-5">
+                                                    <label for="password" class="form-label">Password</label>
                                                     <div class="position-relative auth-pass-inputgroup mb-3">
                                                         <input type="password" class="form-control pe-5 password-input" name="password" placeholder="Masukan password" id="password-input">
                                                         <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                     </div>
+                                                    <div class="float-end">
+                                                        <a href="{{ route('lupaPassword') }}" class="text-muted">Lupa password?</a>
+                                                    </div>
                                                 </div>
 
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                                    <label class="form-check-label" for="auth-remember-check">Ingat saya</label>
-                                                </div>
-
-                                                <div class="mt-4">
+                                                <div class="mt-5">
                                                     <button class="btn btn-primary w-100" type="submit">Login</button>
                                                 </div>
 
@@ -106,10 +100,7 @@
                                                         <h5 class="fs-13 mb-4 title">Login melalui</h5>
                                                     </div>
                                                     <div class="pt-2 hstack gap-2 justify-content-center">
-                                                        <button type="button" class="btn btn-soft-primary btn-icon"><i class="ri-facebook-fill fs-16"></i></button>
                                                         <button type="button" class="btn btn-soft-danger btn-icon"><i class="ri-google-fill fs-16"></i></button>
-                                                        <button type="button" class="btn btn-soft-dark btn-icon"><i class="ri-github-fill fs-16"></i></button>
-                                                        <button type="button" class="btn btn-soft-info btn-icon"><i class="ri-twitter-fill fs-16"></i></button>
                                                     </div>
                                                 </div>
                                             </form>
