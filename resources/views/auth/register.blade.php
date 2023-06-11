@@ -65,7 +65,7 @@
                                     <div class="card-body px-0 p-sm-5 m-lg-4">
                                         <div class="text-center mt-2">
                                             <h5 class="text-primary fs-20">Buat Akun Baru</h5>
-                                            <p class="text-muted">Dapatkan gratis akses selama 7 hari</p>
+                                            <p class="text-muted">Dapatkan gratis akses selama 30 hari</p>
                                         </div>
                                         <div class="p-2 mt-5">
                                             <form class="needs-validation" action="{{ route('registerPost') }}" method="POST">
@@ -153,11 +153,6 @@
 <script src="{{ asset('assets/js/plugins.js') }}"></script>
 
 <script src="{{ asset('assets/js/pages/password-addon.init.js') }}"></script>
-
-<!-- validation init -->
-<script src="{{ asset('assets/js/pages/form-validation.init.js') }}"></script>
-<!-- password create init -->
-<script src="{{ asset('assets/js/pages/passowrd-create.init.js') }}"></script>
 
 <!-- Sweet Alerts js -->
 <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
