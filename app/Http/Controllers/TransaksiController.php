@@ -192,12 +192,8 @@ class TransaksiController extends Controller
         $dataHttpReq['parfum_id'] = $request->post('parfum');
         $dataHttpReq['diskon_id'] = $request->post('diskon');
 
-        Log::info($dataHttpReq);
-
         $hit = hitApiPOST('order-create', $dataHttpReq);
         $response = json_decode($hit);
-
-        Log::info($response);
 
         if (is_object($response)) {
             if ($response->status == true) {

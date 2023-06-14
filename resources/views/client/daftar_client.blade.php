@@ -39,6 +39,7 @@
                             <th>#</th>
                             <th>Nama Client</th>
                             <th>No HP</th>
+                            <th class="text-center">Jumlah Transaksi</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pr->name }}</td>
                                 <td>{{ $pr->noHp }}</td>
+                                <td class="text-center">{{ $pr->jumlah }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <div class="edit">

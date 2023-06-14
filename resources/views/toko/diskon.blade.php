@@ -40,7 +40,7 @@
                             <th>Nama Diskon</th>
                             <th>Jenis Diskon</th>
                             <th>Jumlah Diskon</th>
-                            <th>Jumlah Diskon Dipakai</th>
+                            <th class="text-center">Jumlah Diskon Dipakai</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -57,6 +57,7 @@
                                         {{ rupiahFormat($ly->jumlah_diskon) }}
                                     @endif
                                 </td>
+                                <td class="text-center">{{ $ly->jumlah_dipakai }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <div class="edit">
